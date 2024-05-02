@@ -41,22 +41,19 @@
           }
 
           const photos = await axios.post(
-            "https://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getUserProfilePhotos",
+            "http://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getUserProfilePhotos",
             { user_id: 1524648 }
           );
           console.log("🚀 ~ mounted ~ photos:", photos.data.result.photos[0][0].file_id);
 
           const url = await axios.get(
-            "https://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getFile?file_id=" +
+            "http://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getFile?file_id=" +
               photos.data.result.photos[0][0].file_id
           );
-          console.log("🚀 ~ mounted ~ url:", url);
-
-          console.log(url.data.result.file_path);
 
           try {
             const test = await axios.get(
-              "https://api.telegram.org/file/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/photos/file_0.jpg"
+              "http://api.telegram.org/file/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/photos/file_0.jpg"
             );
           } catch (e) {
             alert("error");
