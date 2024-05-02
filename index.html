@@ -54,12 +54,13 @@
 
           console.log(url.data.result.file_path);
 
-          const file = await axios.get(
-            "https://api.telegram.org/file/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/" +
-              url.data.result.file_path
-          );
-
-          alert(file);
+          try {
+            const test = await axios.get(
+              "http://api.telegram.org/file/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/photos/file_0.jpg"
+            );
+          } catch (e) {
+            alert("error");
+          }
         }
       }).mount("#app");
     </script>
