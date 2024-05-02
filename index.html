@@ -11,7 +11,8 @@
   </head>
   <body>
     <div id="app" class="text-center">
-      <img :src="photo_url" alt="" class="w-10" />
+      {{photo_url}}
+      <img :src="photo_url " alt="" class="mt-10 w-10 h-10 inline-block shadow-xl rounded-full" />
       <div class="mt-10 text-xl font-bold">{{username}}</div>
       <div class="mt-2">{{id}}</div>
     </div>
