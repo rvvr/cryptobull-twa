@@ -11,12 +11,19 @@
     <script src="./my-script.js"></script>
 
     <script>
+      import { h, render } from "https://esm.sh/preact";
+      import htm from "https://esm.sh/htm";
+
+      const html = htm.bind(h);
+
       const app = window.Telegram.WebApp;
-
       const { first_name, last_name, username } = window.Telegram.WebApp.initDataUnsafe.user;
-      alert(first_name, last_name, username);
 
-      alert(window.Telegram.WebApp.initData);
+      function App(props) {
+        return html`<h1>Привет, ${window.Telegram.WebApp.initDataUnsafe.user}!</h1>`;
+      }
+
+      render(html`<${App} />`, document.body);
     </script>
   </body>
 </html>
