@@ -8,14 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="app" class="text-center">
-      {{photo_url}}
       <img :src="photo_url " alt="" class="mt-10 w-10 h-10 inline-block shadow-xl rounded-full" />
       <div class="mt-10 text-xl font-bold">{{username}}</div>
       <div class="mt-2">{{id}}</div>
-      {{initData}}
     </div>
 
     <script>
@@ -31,17 +30,36 @@
             initData: null
           };
         },
-        mounted() {
+        async mounted() {
           const app = window.Telegram.WebApp;
           const user = window.Telegram.WebApp.initDataUnsafe.user;
 
-          this.initData = window.Telegram.WebApp.initData;
           if (user) {
             this.user = user;
             this.username = user.username;
             this.id = user.id;
-            this.photo_url = user.photo_url;
           }
+
+          const photos = await axios.post(
+            "https://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getUserProfilePhotos",
+            { user_id: 1524648 }
+          );
+          console.log("🚀 ~ mounted ~ photos:", photos.data.result.photos[0][0].file_id);
+
+          const url = await axios.get(
+            "https://api.telegram.org/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/getFile?file_id=" +
+              photos.data.result.photos[0][0].file_id
+          );
+          console.log("🚀 ~ mounted ~ url:", url);
+
+          console.log(url.data.result.file_path);
+
+          const file = await axios.get(
+            "https://api.telegram.org/file/bot6619197378:AAFJbkRDNnTZLl17cLhsBPPyPPR-ezwqXls/" +
+              url.data.result.file_path
+          );
+
+          alert(file);
         }
       }).mount("#app");
     </script>
